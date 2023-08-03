@@ -16,6 +16,20 @@ export class App extends Component{
   ],
   filter: '',
   }
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('PhoneBookContacts'));
+    if (contacts) {
+      this.setState({contacts})
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('PhoneBookContacts', JSON.stringify(this.state.contacts))
+    }
+     
+  }
   
   onAddContact = (user) => {
    if (this.state.contacts.find(el => el.name === user.name)) {
